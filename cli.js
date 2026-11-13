@@ -4,10 +4,12 @@
 //   node cli.js samples/*.eml --json > report.json
 //   node cli.js mail.eml --md > report.md
 //   node cli.js mail.eml --fail-above 44      (exit code 2 when the score is higher)
+//   node cli.js mail.eml --live               (adds domain age + SPF/DMARC lookups)
 import { readFile } from "node:fs/promises";
 import { basename } from "node:path";
 import { analyzeEmail, VERSION } from "./src/analyze.js";
 import { toIocCsv, toMarkdown, toStix } from "./src/report.js";
+import { decodeQrNode } from "./src/qr-node.js";
 
 const args = process.argv.slice(2);
 const flags = new Set(args.filter((a) => a.startsWith("--")));
@@ -28,6 +30,7 @@ Usage: node cli.js <file.eml> [more.eml …] [options]
   --md              Markdown incident report
   --csv             IOC list as CSV
   --stix            STIX 2.1 bundle
+  --live            also look up domain age (RDAP) and SPF/DMARC records (DNS-over-HTTPS)
   --fail-above N    exit with code 2 if any score is above N (CI / mail-flow gate)
 `);
   process.exit(files.length ? 0 : 1);
@@ -42,7 +45,7 @@ let worst = 0;
 const outputs = [];
 for (const file of files) {
   const bytes = await readFile(file);
-  const r = await analyzeEmail(new Uint8Array(bytes), { filename: basename(file) });
+  const r = await analyzeEmail(new Uint8Array(bytes), { filename: basename(file), decodeQr: decodeQrNode, live: flags.has("--live") });
   worst = Math.max(worst, r.score);
   if (flags.has("--json")) outputs.push(r);
   else if (flags.has("--md")) console.log(toMarkdown(r));

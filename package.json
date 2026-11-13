@@ -1,6 +1,6 @@
 {
   "name": "phishlens",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Phishing email analyzer: SPF/DKIM/DMARC, look-alike domains, link and attachment forensics, MITRE ATT&CK mapping. Runs fully in the browser or as a CLI.",
   "type": "module",
   "private": true,

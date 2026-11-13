@@ -154,6 +154,7 @@ export function analyzeLanguage({ subject = "", text = "", html = "" }) {
       title: rule.title,
       detail: `${rule.detail} Matched: ${hits.map((h) => `"${h.phrase}"`).join(", ")}.`,
       evidence: hits.slice(0, 5).map((h) => h.context),
+      phrases: hits.map((h) => h.phrase),
       mitre: rule.mitre,
     });
   }

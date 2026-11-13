@@ -54,7 +54,7 @@ export function recommendations(findings, verdict) {
     return out;
   }
   out.push("Don't click any links, scan QR codes or open attachments from this email.");
-  if (has(/^(lang_bec_payment|freemail_role|reply_to)/)) out.push("Never pay or change bank details because of an email. Call the person on a phone number you already know, not one from this message.");
+  if (has(/^(lang_bec_payment|freemail_role|reply_to_other_freemail)$/)) out.push("Never pay or change bank details because of an email. Call the person on a phone number you already know, not one from this message.");
   if (has(/credential|link_|html_form|lookalike|display_name|qr/)) out.push("If you already typed your password on a linked page, change it now, sign out of all sessions and turn on multi-factor authentication.");
   if (has(/^att_/)) out.push("If an attachment was opened, disconnect the computer from the network and contact your IT/security team. Don't just delete the file.");
   out.push("Report it: use your mail client's \"Report phishing\" button or forward it as an attachment to your security team.");

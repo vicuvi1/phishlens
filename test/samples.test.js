@@ -4,6 +4,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { analyzeEmail } from "../src/analyze.js";
 import { toIocCsv, toMarkdown, toStix } from "../src/report.js";
+import { decodeQrNode } from "../src/qr-node.js";
 
 const load = async (name) => analyzeEmail(new Uint8Array(await readFile(new URL(`../samples/${name}`, import.meta.url))), { filename: name });
 const ids = (r) => r.findings.map((f) => f.id);
@@ -40,12 +41,29 @@ test("HTML smuggling attachment", async () => {
   assert.ok(r.urls.some((u) => u.host === "payroll-portal-docs.web.app"));
 });
 
-test("QR code phishing is decoded when a QR decoder is provided", async () => {
+test("QR code phishing: the real PNG is decoded and its link analysed", async () => {
   const bytes = new Uint8Array(await readFile(new URL("../samples/05-qr-code-mfa-reenrollment.eml", import.meta.url)));
-  const r = await analyzeEmail(bytes, { decodeQr: async () => ["https://mfa-reset.sharepoint-docs.xyz/enroll?tenant=example&id=55102"] });
+  const r = await analyzeEmail(bytes, { decodeQr: decodeQrNode });
+  const png = r.attachments.find((a) => a.isImage);
+  assert.deepEqual(png.qr, ["https://mfa-reset.sharepoint-docs.xyz/enroll?tenant=example&id=55102"]);
   assert.ok(ids(r).includes("qr_code"));
   assert.ok(ids(r).includes("html_image_only"));
-  assert.ok(["phishing", "malicious"].includes(r.verdict.key));
+  assert.equal(r.verdict.key, "malicious");
+});
+
+test("live intel: a 3-day-old sender domain with no DMARC is flagged (mocked network)", async () => {
+  const created = new Date(Date.now() - 3 * 86400000).toISOString();
+  const fetchImpl = async (url) => {
+    const body = url.includes("rdap") ? { events: [{ eventAction: "registration", eventDate: created }] }
+      : url.includes("_dmarc") ? { Status: 3 } : url.includes("type=MX") ? { Status: 0, Answer: [] } : { Status: 0, Answer: [{ data: '"v=spf1 -all"' }] };
+    return { ok: true, json: async () => body };
+  };
+  const r = await analyzeEmail(new Uint8Array(await readFile(new URL("../samples/02-ceo-urgent-wire-transfer.eml", import.meta.url))), { live: true, fetchImpl });
+  assert.ok(r.live.domains.length >= 1);
+  const raw = "From: Billing <billing@fresh-invoices.example>\r\nTo: a@example.com\r\nSubject: hi\r\n\r\nhello";
+  const r2 = await analyzeEmail(raw, { live: true, fetchImpl });
+  assert.ok(ids(r2).includes("live_new_fresh-invoices.example"));
+  assert.ok(ids(r2).includes("live_no_dmarc"));
 });
 
 test("PayPal homograph link", async () => {

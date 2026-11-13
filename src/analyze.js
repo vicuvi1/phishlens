@@ -8,8 +8,9 @@ import { analyzeLanguage, analyzeHtmlBody } from "./language.js";
 import { computeScore, recommendations, sevRank, sortFindings, summarize } from "./score.js";
 import { describe } from "./mitre.js";
 import { brandForDomain, isIP } from "./domains.js";
+import { liveChecks } from "./live.js";
 
-export const VERSION = "1.0.0";
+export const VERSION = "2.0.0";
 
 const LINK_FINDINGS = {
   homograph: { title: "Link uses look-alike letters from another alphabet", mitre: ["T1566.002", "T1036", "T1583.001"] },
@@ -91,7 +92,8 @@ function buildIocs(hdr, urls, atts, verdict) {
 /**
  * Analyze one raw email (.eml / RFC 822 source).
  * @param {string|ArrayBuffer|Uint8Array} input
- * @param {{ decodeQr?: (bytes: Uint8Array, type: string) => Promise<string[]>, filename?: string }} opts
+ * @param {{ decodeQr?: (bytes: Uint8Array, type: string) => Promise<string[]>, filename?: string,
+ *           live?: boolean, fetchImpl?: typeof fetch, liveTimeout?: number }} opts
  */
 export async function analyzeEmail(input, opts = {}) {
   const started = Date.now();
@@ -143,6 +145,20 @@ export async function analyzeEmail(input, opts = {}) {
     findings.push({ id: "brand_phish_combo", severity: "high", category: "content", title: "Brand impersonation with a login link", detail: "The email claims to be a well-known brand and sends you to a login page that brand doesn't own.", evidence: [], mitre: ["T1656", "T1598.003"] });
   }
 
+  // Optional live intel (domain age, SPF/DMARC records). Only domain names are sent.
+  let live = null;
+  if (opts.live) {
+    try {
+      live = await liveChecks(
+        { senderDomain: hdr.from.domain, linkDomains: urls.filter((u) => u.host && !u.brand && u.scheme.startsWith("http")).map((u) => u.host) },
+        { fetchImpl: opts.fetchImpl || globalThis.fetch, timeout: opts.liveTimeout || 5000 },
+      );
+      findings.push(...live.findings);
+    } catch (e) {
+      live = { error: String(e.message || e), domains: [], findings: [] };
+    }
+  }
+
   const ctx = { dmarcPass: hdr.auth.dmarc?.result === "pass", dkimAligned: hdr.dkimAligned };
   const { score, verdict } = computeScore(findings, ctx);
   const sorted = sortFindings(findings);
@@ -190,6 +206,7 @@ export async function analyzeEmail(input, opts = {}) {
     dkimSignatures: hdr.dkimSigs,
     dkimAligned: hdr.dkimAligned,
     received: hdr.received,
+    live,
     headers: parsed.headers.list.map((h) => ({ name: h.name, value: h.value })),
     urls,
     attachments: atts,
