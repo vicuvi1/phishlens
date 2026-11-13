@@ -402,6 +402,12 @@ h1 { font-size: clamp(38px, 7vw, 72px); line-height: 1.02; letter-spacing: -0.04
 .toast { position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 30px); opacity: 0; z-index: 80; padding: 10px 16px; border-radius: 12px; background: var(--panel-solid); border: 1px solid var(--line2); box-shadow: var(--shadow); font-size: 13.5px; font-weight: 600; transition: all 0.25s; pointer-events: none; }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
+.design-switch { position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%); z-index: 75; display: flex; align-items: center; gap: 2px; padding: 5px; border-radius: 14px; background: var(--panel-solid); border: 1px solid var(--line2); box-shadow: var(--shadow); font: 600 12.5px var(--sans); max-width: calc(100vw - 24px); overflow-x: auto; }
+.design-switch .ds-label { padding: 0 8px 0 6px; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; }
+.design-switch button { border: 0; background: none; padding: 7px 11px; border-radius: 9px; cursor: pointer; color: var(--muted); white-space: nowrap; }
+.design-switch button:hover { color: var(--text); }
+.design-switch button.on { background: var(--accent); color: var(--accent-ink); }
+.static .design-switch { display: none; }
 .fade-in { animation: fadeIn 0.45s cubic-bezier(.2,.8,.2,1) both; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } }
 

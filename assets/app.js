@@ -673,6 +673,20 @@ function init() {
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") document.querySelectorAll(".menu-list").forEach((m) => (m.hidden = true)); });
 
   $("#allSamplesBtn").addEventListener("click", loadAllSamples);
+
+  // Design switcher (pick a visual direction; remembered per browser)
+  const DESIGNS = [["aurora", "Aurora"], ["terminal", "Terminal"], ["editorial", "Editorial"], ["neon", "Neon HUD"], ["bento", "Bento"]];
+  const current = document.documentElement.getAttribute("data-design");
+  document.body.append(h("div", { class: "design-switch", role: "group", "aria-label": "Design variant" },
+    h("span", { class: "ds-label", text: "Design" }),
+    DESIGNS.map(([id, label]) => h("button", { type: "button", class: id === current ? "on" : "", "aria-pressed": String(id === current), onclick: () => {
+      store.set("phishlens-design", id);
+      const q = new URLSearchParams(location.search);
+      q.set("design", id);
+      location.search = q.toString(); // keeps the #hash (sample + tab)
+    } }, label)),
+  ));
+
   const fromHash = async () => {
     if (location.hash === "#batch=samples" && $("#batch").hidden) return loadAllSamples();
     const m = /#sample=(\d{2})/.exec(location.hash);
