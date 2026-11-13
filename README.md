@@ -14,7 +14,7 @@ A phishing email analyzer for SOC analysts. It checks the sender's authenticatio
 ![Runs in browser](https://img.shields.io/badge/privacy-runs%20100%25%20in%20your%20browser-34d399)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
-![PhishLens verdict for a Microsoft 365 credential-phishing email](docs/overview.png)
+![PhishLens demo: a QR-code phishing email is decoded and flagged in seconds](docs/demo.gif)
 
 </div>
 
