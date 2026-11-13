@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [20, 22, 24]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - run: node --test
+      - name: CLI smoke test (phishing must fail the gate, the real email must pass)
+        run: |
+          node cli.js samples/*.eml
+          node cli.js samples/07-legit-github-notification.eml --fail-above 19
+          if node cli.js samples/01-microsoft365-password-expiry.eml --fail-above 44; then echo "gate did not trip"; exit 1; fi
+          node cli.js samples/03-dhl-invoice-malware.eml --stix | node -e "JSON.parse(require('fs').readFileSync(0,'utf8'))"

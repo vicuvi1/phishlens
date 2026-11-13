@@ -1,0 +1,37 @@
+Received: from mx1.paypal-resolution-center.com
+ (mx1.paypal-resolution-center.com [203.0.113.19]) by mx.example.com with
+ ESMTPS id 9e9d6b5c; Tue, 10 Nov 2026 08:12:31 +0000
+Authentication-Results: mx.example.com; spf=pass
+ smtp.mailfrom=paypal-resolution-center.com; dkim=none; dmarc=none
+ header.from=paypal-resolution-center.com
+From: "PayPal" <service@paypal-resolution-center.com>
+To: victim@example.com
+Reply-To: service@paypal-resolution-center.com
+Subject: You have received a refund of $389.00
+Date: Tue, 10 Nov 2026 08:12:31 +0000
+Message-ID: <1607698564@paypal-resolution-center.com>
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="===============1726897711547017236=="
+
+--===============1726897711547017236==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+Dear customer, a refund of $389.00 is waiting. Claim it here: https://bit.ly/=
+3pp-refund
+
+--===============1726897711547017236==
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+<html><body><p>Dear customer,</p><p>A refund of <b>$389.00</b> is waiting for=
+ you. Claim your refund within 48 hours:</p>
+<p><a href=3D"https://xn--pypal-4ve.com/signin/refund?case=3DPP-D-77120">Log =
+in to PayPal</a></p>
+<p>Or use this link: <a href=3D"https://bit.ly/3pp-refund">https://www.paypal=
+.com/refund</a></p>
+<p>PayPal Resolution Center</p></body></html>
+
+--===============1726897711547017236==--

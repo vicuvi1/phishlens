@@ -1,0 +1,55 @@
+Received: from smtp.example-it-notify.com (smtp.example-it-notify.com
+ [198.51.100.91]) by mx.example.com with ESMTPS id a05700b1; Tue, 10 Nov 2026
+ 08:12:31 +0000
+Authentication-Results: mx.example.com; spf=neutral
+ smtp.mailfrom=example-it-notify.com; dkim=none; dmarc=none
+ header.from=example-it-notify.com
+From: "IT Service Desk" <servicedesk@example-it-notify.com>
+To: staff@example.com
+Subject: MFA re-enrollment required
+Date: Tue, 10 Nov 2026 08:12:31 +0000
+Message-ID: <267084204@example-it-notify.com>
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="===============7965252813344102734=="
+
+--===============7965252813344102734==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Scan the QR code with your phone camera to re-enroll MFA.
+
+--===============7965252813344102734==
+MIME-Version: 1.0
+Content-Type: multipart/related;
+ boundary="===============8159013112210849925=="
+
+--===============8159013112210849925==
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+<html><body style=3D"font-family:Arial"><p style=3D"font-size:13px">Scan to r=
+e-enroll MFA</p>
+<img src=3D"cid:qr55102" width=3D"180" height=3D"180" alt=3D""></body></html>
+
+--===============8159013112210849925==
+Content-Type: image/png
+Content-Transfer-Encoding: base64
+Content-ID: <qr55102>
+MIME-Version: 1.0
+Content-Disposition: inline
+
+iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2AQAAAADNaUdlAAAB7klEQVR4nO2ZzakDMQyEBS7AJbl1
+l+QCDHrMjOxN3iG3gAQxIWT97UVIo7+YfzzbfvzLfJmZNffmsy08bhvWHbc2KvDhgG7dfY22xgYc
+zfFYgutp9+k+8YOPbVmrxKccAs90L8i9LbwFn/QJE+twxBeUgTtEmZO/x19iTn1TGa+ff/rPy8+x
+DmXsPhFfNPo9/2blDCgFF+ILL05k2V6Gm5lekYlOlcjKApyZ9SYkegaJdj/xVYBL5fQJvGT3Jj9f
+4yXFwlF6pTFLVeBwhCxzVLlw0RN/yblP5CRGE0OMWmGXEfGVnDMV7aNsErSozFtegOMoswKqOfJl
+VEkFvuAiRtmInMTIYnCNApx2oDPlR4aGrSU4S5kKQiRXdRnstQtwCoIN3fOistQuwWHfZEypPsc3
+Lq9/MnOO9bIPNa2HuJViK/BISDKRcpFEbv+dm3OnovleVYJTJkw89SM352R8UyzTbYw7pz/NzaUJ
+jjWqb2rx8LgqcK3lVCU0mRmm/NN0pOeEmixjxUi5qNwV4DrsJjTWq1xQNxV47HfhmVgUacXIRW8F
+HvutmAzUbtC+9/1cXn6Hy7ijSgztkpfhNE7/DEgo+l2Gn+EeVVot6tV/ei6DJGjuSmPRfvcrubn2
+u1KD/l+Csm9/l51/PD/u3+V/9MmkVKk03+MAAAAASUVORK5CYII=
+
+--===============8159013112210849925==--
+
+--===============7965252813344102734==--

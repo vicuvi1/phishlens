@@ -1,0 +1,31 @@
+Received: from mail-sor-f41.google.com (mail-sor-f41.google.com
+ [198.51.100.23]) by mx.example.com with ESMTPS id bf9dfb91; Tue, 10 Nov 2026
+ 08:12:31 +0000
+Authentication-Results: mx.example.com; spf=pass (google.com: domain of
+ andrei.popescu.ceo.office@gmail.com designates 198.51.100.23 as permitted
+ sender) smtp.mailfrom=gmail.com; dkim=pass header.d=gmail.com
+ header.s=20230601; dmarc=pass (p=NONE) header.from=gmail.com
+Return-Path: <andrei.popescu.ceo.office@gmail.com>
+From: "Andrei Popescu (CEO)" <andrei.popescu.ceo.office@gmail.com>
+To: finance@example.com
+Reply-To: a.popescu.executive@outlook.com
+Subject: Quick favour - are you at your desk?
+Date: Tue, 10 Nov 2026 08:12:31 +0000
+Message-ID: <CAF7x9k2=Qm1pZ8vH@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi,
+
+Are you at your desk? I need a quick favour. We are closing a confidential ac=
+quisition today and I need you to process an urgent wire transfer of EUR 48,7=
+50 to our new vendor before 3 PM.
+
+The bank details have changed, I'll send the IBAN as soon as you confirm. Ple=
+ase keep this strictly confidential and between us until the announcement.
+
+I'm in meetings all day so email only.
+
+Andrei
+Sent from my iPhone

@@ -1,0 +1,51 @@
+Received: from mx.example.com (mx.example.com [10.0.0.5]) by
+ mailstore.example.com with ESMTPS id f7111560; Tue, 10 Nov 2026 08:12:32
+ +0000
+Received: from o1.sgmail.github.com (o1.sgmail.github.com [192.0.2.10]) by
+ mx.example.com with ESMTPS id c6873fdf; Tue, 10 Nov 2026 08:12:31 +0000
+Authentication-Results: mx.example.com; spf=pass (domain of sgmail.github.com
+ designates 192.0.2.10 as permitted sender) smtp.mailfrom=sgmail.github.com;
+ dkim=pass header.d=github.com header.s=pf2023; dmarc=pass (p=REJECT)
+ header.from=github.com
+Return-Path: <bounces+1234-abcd=example.com@sgmail.github.com>
+From: "GitHub" <noreply@github.com>
+To: dev@example.com
+Subject: [GitHub] A new SSH key was added to your account
+Date: Tue, 10 Nov 2026 08:12:31 +0000
+Message-ID: <6727f1a0c3b1e_3a2b1d8c41734@lowworker-7d9c.mail>
+MIME-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=github.com; s=pf2023;
+ h=from:to:subject:date; bh=abc=; b=def=
+Content-Type: multipart/alternative;
+ boundary="===============4752750620488118619=="
+
+--===============4752750620488118619==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Hey dev!
+
+A new public SSH key was added to your account (laptop-2026).
+
+If you did this, you can ignore this email.
+If not, review your keys at https://github.com/settings/keys
+
+Thanks,
+The GitHub Team
+
+--===============4752750620488118619==
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+<html><body><p>Hey dev!</p><p>A new public SSH key was added to your account =
+(<code>laptop-2026</code>).</p>
+<p>If you did this, you can ignore this email. If not, <a href=3D"https://git=
+hub.com/settings/keys">review your SSH keys</a>.</p>
+<p>Thanks,<br>The GitHub Team</p><p style=3D"color:#666;font-size:12px"><a hr=
+ef=3D"https://github.com/settings/notifications">Notification settings</a> =
+=C2=B7
+<a href=3D"https://docs.github.com/articles/github-privacy-statement">Privacy=
+</a></p></body></html>
+
+--===============4752750620488118619==--
